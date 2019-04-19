@@ -92,7 +92,7 @@ public class DBUtils {
         try {
             ps = con.prepareStatement(sql);//预处理
             ps.executeUpdate();//执行更新操作
-            LogZ.debug("創建數據庫：" + sql);
+            LogZ.debug("创建数据库表：" + sql);
         } catch (SQLException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
@@ -163,5 +163,48 @@ public class DBUtils {
             close(rs, ps, con);
         }
         return null;
+    }
+
+
+    /**
+     * 查询
+     * @param sql
+     * @param obj
+     * @return
+     */
+    public static Boolean selectByCardNum(String sql, Object...obj){
+        Connection con = getConnection();
+        ResultSet rs = null;
+        PreparedStatement ps = null;
+        try {
+            ps = con.prepareStatement(sql);
+            for(int i=0;i<obj.length;i++){
+                ps.setObject(i+1, obj[i]);
+            }
+            rs = ps.executeQuery();
+            //获取结果集的列数
+            int count = rs.getMetaData().getColumnCount();
+            if(count == 0){
+                LogZ.error("此号码不存在。");
+                return false;
+            } else if (count == 1){
+                LogZ.error("此号码已存在。");
+                return true;
+            } else if (count > 1){
+                LogZ.error("此号码存在，一共有 " + count + " 个。");
+                return true;
+            }
+        }catch (SQLSyntaxErrorException e) {
+            LogZ.error("此号码不存在。\n" + e);
+            return false;
+//            e.printStackTrace();
+        }catch (SQLException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+            return false;
+        }finally{
+            close(rs, ps, con);
+        }
+        return false;
     }
 }

@@ -1,4 +1,5 @@
 import com.util.Constants;
+import com.util.CreateID;
 import com.util.DBUtils;
 import com.util.LogZ;
 import org.testng.annotations.Test;
@@ -42,32 +43,47 @@ public class DBTest {
         }
     }
 
-    public static void main(String[] args){
-//        createTable();
-        insertData();
+    public static void main(String[] args) {
+/*        createTable();
+        insertDataBooks();*/
+/*        for (int i = 0; i < 100; i++) {
+            LogZ.error(CreateID.getCard());
+        }*/
+
+/*      Boolean eCard = DBUtils.selectByCardNum(Constants.SQL_SELECT_UBER_UDID,"2524");//生成的随机数进入数据库中查询一下，看时候有相同的。
+        LogZ.error( eCard + "==");*/
+
+         for(int i = 0; i < 1000000; i++){
+             insertDataUber();
+         }
     }
 
     /**
      * 插入数据
      */
-    @Test
-    private static void insertData() {
+    private static void insertDataBooks() {
         DBUtils.executeUpdate(Constants.SQL_INSERT_BOOKS,"白夜行","9787544242516","29.80元","[日] 东野圭吾");
         DBUtils.executeUpdate(Constants.SQL_INSERT_BOOKS,"活着","9787506365437","20.00元","余华");
-        DBUtils.executeUpdate(Constants.SQL_INSERT_BOOKS,"围城 ","9787020024759","20.00元","钱钟书");
+        DBUtils.executeUpdate(Constants.SQL_INSERT_BOOKS,"围城 ","9787020024759","19.00元","钱钟书");
 
         DBUtils.executeUpdate(Constants.SQL_INSERT_BOOKS,"白夜行","9787544242516","29.80元","[日] 东野圭吾");
         DBUtils.executeUpdate(Constants.SQL_INSERT_BOOKS,"活着","9787506365437","20.00元","余华");
-        DBUtils.executeUpdate(Constants.SQL_INSERT_BOOKS,"围城 ","9787020024759","20.00元","钱钟书");
+        DBUtils.executeUpdate(Constants.SQL_INSERT_BOOKS,"围城 ","9787020024759","19.00元","钱钟书");
+    }
+
+    private static void insertDataUber() {
+        String UDID = CreateID.returnCard();
+        DBUtils.executeUpdate(Constants.SQL_INSERT_UBER, UDID,"车找人","杭州","梅川","5月1日","4","150","蜗牛","13282380039","福特蒙迪欧","6年","909606812","顺路的可以包接送。");
     }
 
     /**
      * 新建表
      */
     @Test
-    public void createTable() {
+    public static void createTable() {
         DBUtils.createTable(Constants.SQL_CREATE_BOOK);
         DBUtils.createTable(Constants.SQL_CREATE_PERSON);
         DBUtils.createTable(Constants.SQL_CREATE_WORK);
+        DBUtils.createTable(Constants.SQL_CREATE_UBER);
     }
 }
