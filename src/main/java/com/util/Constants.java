@@ -23,7 +23,7 @@ public class Constants {
     public static final String SQL_SELECT_BOOK = "SELECT * FROM books";
     public static final String SQL_SELECT_BOOK2 = "SELECT * FROM books WHERE Id_B = '6'";
     public static final String SQL_SELECT_UBER_UDID = "SELECT * FROM uber GROUPE BY UDID Where UDID = ?";
-    public static final String SQL_SELECT_UBER_UDID2 = "SELECT * FROM uber Where UDID = ?";
+    public static final String SQL_SELECT_UBER_UDID2 = "SELECT * FROM uber Where UDID = ? or UDID = ? or UDID = ?";
     /**
      * 創建數據庫表的語句
      */
