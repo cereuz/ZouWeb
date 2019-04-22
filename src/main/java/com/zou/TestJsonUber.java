@@ -1,9 +1,7 @@
 package com.zou;
 
 import com.google.gson.Gson;
-import com.util.Book;
-import com.util.Constants;
-import com.util.Uber;
+import com.util.*;
 
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -32,6 +30,8 @@ public class TestJsonUber extends HttpServlet {
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
+
+        initRequest(request);
 
         Connection connection = null;
         response.setContentType("text/json; charset=utf-8");
@@ -84,6 +84,22 @@ public class TestJsonUber extends HttpServlet {
             out.print("get data error!");
             e.printStackTrace();
         }
+    }
+
+    /**
+     * 打印请求的参数
+     */
+    private void initRequest(HttpServletRequest request) {
+        String body = HttpServletRequestReader.ReadAsChars(request);
+        String str;
+        if(body.length() == 0){
+            str = "POST " + request.getRequestURL() + " HTTP1.1";
+        }  else {
+            str = "POST " + request.getRequestURL() + "?" + body +  " HTTP1.1";
+        }
+        System.out.println(str);
+        ParseString.parse(str);
+        System.out.println("=============================================================================");
     }
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
