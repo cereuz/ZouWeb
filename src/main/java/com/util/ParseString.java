@@ -1,5 +1,7 @@
 package com.util;
 
+import com.bean.Request;
+
 import java.util.HashMap;
 import java.util.Map;
 

@@ -1,7 +1,7 @@
 package com.zou;
 
 import com.google.gson.Gson;
-import com.util.Book;
+import com.bean.Book;
 import com.util.Constants;
 
 import javax.servlet.annotation.WebServlet;

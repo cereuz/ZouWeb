@@ -1,5 +1,6 @@
 package com.zou;
 
+import com.bean.Uber;
 import com.google.gson.Gson;
 import com.util.*;
 
