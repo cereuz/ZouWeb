@@ -2,6 +2,8 @@ package com.util;
 
 import com.bean.Request;
 
+import java.io.UnsupportedEncodingException;
+import java.net.URLDecoder;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -25,7 +27,7 @@ public class ParseString {
         String xieYiBanBen = fenGeHang[2];
         request.setXieYiBanBen(xieYiBanBen);
         System.out.println("方法："+method);
-        System.out.println("url:"+url);
+//        System.out.println("url:"+url);
         System.out.println("版本："+xieYiBanBen);
 
         int index = url.indexOf("://");
@@ -33,28 +35,28 @@ public class ParseString {
         request.setXieYi(xieYi);
         System.out.println("协议:"+xieYi);
         url = url.substring(index+3);
-        System.out.println(url);
+        //System.out.println(url);
 
         index=url.indexOf(":");
         String ip=url.substring(0,index);
         request.setIp(ip);
         System.out.println("ip="+ip);
         url=url.substring(index+1);
-        System.out.println(url);
+        //System.out.println(url);
 
         index=url.indexOf("/");
         String port=url.substring(0,index);
         request.setPort(port);
         System.out.println("port=" + port);
         url=url.substring(index+1);
-        System.out.println(url);
+        //System.out.println(url);
 
         index=url.indexOf("/");
         String prjName=url.substring(0,index);
         request.setPrjName(prjName);
         System.out.println("prjName="+prjName);
         url=url.substring(index+1);
-        System.out.println(url);
+        //System.out.println(url);
 
         if(url.contains("?")){
             index=url.indexOf("?");
@@ -67,18 +69,42 @@ public class ParseString {
 
         //parameter:意思是参数
         String[] parameters = queryString.split("&");
-        if (parameters.length < 2){
-            System.out.println("暂时没有参数哦----");
+        if (parameters.length <= 1){
+            for (String s : parameters) {
+                System.out.println(parameters.length + "--" + s);
+            }
         } else {
             Map<String, String> map = new HashMap<String, String>();
             for (String s : parameters) {
-                String[] yiZu = s.split("=");//根据"="分割，放在一个数组"yiZu"里面
-                map.put(yiZu[0], yiZu[1]);//put（放）到map里面
-                System.out.println(yiZu[0] + "=" + yiZu[1]);
-                //yiZu[0]：下标的第一个值（数组里面的第一个值）；yiZu[1]：下标的的第二个值（数组里面的第二个值）
+                printParam(map, s);
             }
             request.setMap(map);
         }
         return request ;
+    }
+
+    /**
+     * yiZu[0]：下标的第一个值（数组里面的第一个值）；yiZu[1]：下标的的第二个值（数组里面的第二个值）
+     * @param map
+     * @param s
+     */
+    private static void printParam(Map<String, String> map, String s) {
+        String[] yiZu = s.split("=");//根据"="分割，放在一个数组"yiZu"里面
+        map.put(yiZu[0], yiZu[1]);//put（放）到map里面
+
+        //Url编码的解码
+        if(yiZu[0].equals("time")){
+              yiZu[1] = DateUtil.times(Long.valueOf(yiZu[1]));
+              System.out.println(yiZu[0] + "=" + yiZu[1]);
+        } else if(yiZu[0].equals("Book") || yiZu[0].equals("Poem")){
+            try {
+                yiZu[1] = URLDecoder.decode(yiZu[1],   "utf-8");
+                System.out.println(yiZu[0] + "=" + yiZu[1]);
+            }  catch (UnsupportedEncodingException e){
+                LogZ.error(e.toString());
+            }
+        } else {
+            System.out.println(yiZu[0] + "=" + yiZu[1]);
+        }
     }
 }

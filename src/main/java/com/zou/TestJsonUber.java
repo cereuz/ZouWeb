@@ -32,10 +32,17 @@ public class TestJsonUber extends HttpServlet {
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
 
+/*        response.setContentType("text/html; charset=utf-8");
+        response.setCharacterEncoding("utf-8");
+        request.setCharacterEncoding("utf-8");*/
+
+        request.setCharacterEncoding("utf-8");
         initRequest(request);
+
 
         Connection connection = null;
         response.setContentType("text/json; charset=utf-8");
+        response.setCharacterEncoding("utf-8");
         PrintWriter out = response.getWriter();
         /**
          * 设置响应内容类型
@@ -94,12 +101,18 @@ public class TestJsonUber extends HttpServlet {
         String body = HttpServletRequestReader.ReadAsChars(request);
         String str;
         if(body.length() == 0){
+            str = request.getRequestURL() + "";
+        }  else {
+            str = request.getRequestURL() + "?" + body ;
+        }
+/*        if(body.length() == 0){
             str = "POST " + request.getRequestURL() + " HTTP1.1";
         }  else {
             str = "POST " + request.getRequestURL() + "?" + body +  " HTTP1.1";
         }
         System.out.println(str);
-        ParseString.parse(str);
+        ParseString.parse(str);*/
+        UrlUtil.getPrint(str);
         System.out.println("=============================================================================");
     }
 
