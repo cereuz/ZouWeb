@@ -79,6 +79,10 @@ public class UrlUtil {
                 e.printStackTrace();
             }
             LogY.error(entity.baseUrl + "\n" + sParams);
+
+            if(entity.params.containsKey("time")){
+                LogY.info(DateUtil.times(Long.valueOf(entity.params.get("time"))));
+            }
         }
     }
 

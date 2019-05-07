@@ -32,7 +32,7 @@ public class TestJsonUber extends HttpServlet {
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
 
-/*        response.setContentType("text/html; charset=utf-8");
+/*      response.setContentType("text/html; charset=utf-8");
         response.setCharacterEncoding("utf-8");
         request.setCharacterEncoding("utf-8");*/
 
