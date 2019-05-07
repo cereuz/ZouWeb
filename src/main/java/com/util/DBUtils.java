@@ -165,6 +165,31 @@ public class DBUtils {
         return null;
     }
 
+    /**
+     * 查询Uber表的所有数据
+     */
+    public static void selectUber() {
+        List<Map<String, Object>> list = DBUtils.executeQuery(Constants.SQL_SELECT_UBER);
+        for (int i = 0; i < list.size(); i++) {
+            LogZ.error(list.get(i).toString());
+            LogZ.error(list.get(i).get(Constants.UBER_UDID).toString());
+        }
+    }
+
+    /**
+     * 查询 Uber 表任意一个数据
+     * @return
+     */
+    public static String selectUberOne() {
+        List<Map<String,Object>>  list =  DBUtils.executeQuery(Constants.SQL_SELECT_UBER);
+        if (list.size() > 1){
+            return list.get(ZaoUtils.getRandom(list.size())).get(Constants.UBER_UDID).toString();
+        } else {
+            LogZ.error("暂时没有数据。");
+            return null;
+        }
+    }
+
 
     /**
      * 查询

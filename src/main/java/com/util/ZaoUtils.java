@@ -4,6 +4,7 @@ import java.io.*;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
+import java.util.Random;
 
 /**
  * @author : zw
@@ -13,7 +14,19 @@ import java.util.Locale;
  */
 public class ZaoUtils {
 
-    //复制文件
+    /**
+     * 生成随机数
+     * @return
+     */
+    public static int getRandom(int i){
+        return new Random().nextInt(i);
+    }
+
+    /**
+     * 复制文件
+     * @param path1
+     * @param path2
+     */
     public static void copyFile(String path1,String path2) {
         // TODO Auto-generated method stub
         //封装数据源
@@ -35,7 +48,12 @@ public class ZaoUtils {
         }
     }
 
-    //读取文件
+
+    /**
+     * 读取文件
+     * @param path
+     * @return
+     */
     public static String readFile(String  path){
         File  file =  new  File(path);
         try {
@@ -58,7 +76,12 @@ public class ZaoUtils {
         }
     }
 
-    //获取系统时间。
+
+    /**
+     * 获取系统时间
+     * @param i
+     * @return
+     */
     public static String getSystemTimeMore(int i) {
         SimpleDateFormat mFormat = null;
         Date date = new Date(System.currentTimeMillis());//获取当前时间
@@ -102,4 +125,6 @@ public class ZaoUtils {
         String str = mFormat.format(date);
         return str;
     }
+
+
 }

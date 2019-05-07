@@ -47,9 +47,9 @@ public class TestJsonUber extends HttpServlet {
             connection = DriverManager.getConnection(Constants.URL_ZOU0306, Constants.USER_NAME, Constants.PASSWORD);
 //            connection = DBUtils.getConnection();
             PreparedStatement prst = connection.prepareStatement(Constants.SQL_SELECT_UBER_UDID2);
-            prst.setObject(1,"936250");
-            prst.setObject(2,"940407");
-            prst.setObject(3,"870379");
+            for (int i = 1; i <= 10; i++){
+                prst.setObject(i,DBUtils.selectUberOne());
+            }
             //结果集
             ResultSet rs = prst.executeQuery();
             Gson gson = new Gson();

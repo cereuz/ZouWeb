@@ -16,14 +16,16 @@ public class Constants {
     public static final String USER_NAME = "root";
     //密码
     public static final String PASSWORD = "123456";
+    public static final String UBER_UDID = "UDID";
     /**
      * 查询数据库的SQL语句
      */
     public static final String SQL_SELECT_NAME = "SELECT name FROM country";
     public static final String SQL_SELECT_BOOK = "SELECT * FROM books";
+    public static final String SQL_SELECT_UBER = "SELECT * FROM uber";
     public static final String SQL_SELECT_BOOK2 = "SELECT * FROM books WHERE Id_B = '6'";
     public static final String SQL_SELECT_UBER_UDID = "SELECT * FROM uber GROUPE BY UDID Where UDID = ?";
-    public static final String SQL_SELECT_UBER_UDID2 = "SELECT * FROM uber Where UDID = ? or UDID = ? or UDID = ?";
+    public static final String SQL_SELECT_UBER_UDID2 = "SELECT * FROM uber Where UDID = ? or UDID = ? or UDID = ? or UDID = ? or UDID = ? or UDID = ? or UDID = ? or UDID = ? or UDID = ? or UDID = ?";
     /**
      * 創建數據庫表的語句
      */

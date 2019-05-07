@@ -1,10 +1,10 @@
-import com.util.Constants;
-import com.util.CreateID;
-import com.util.DBUtils;
-import com.util.LogZ;
+import com.util.*;
 import org.testng.annotations.Test;
 
 import java.sql.*;
+import java.util.List;
+import java.util.Map;
+import java.util.Random;
 
 /**
  * @author : zw
@@ -53,9 +53,22 @@ public class DBTest {
 /*      Boolean eCard = DBUtils.selectByCardNum(Constants.SQL_SELECT_UBER_UDID,"2524");//生成的随机数进入数据库中查询一下，看时候有相同的。
         LogZ.error( eCard + "==");*/
 
-         for(int i = 0; i < 1000000; i++){
+/*         for(int i = 0; i < 1000000; i++){
              insertDataUber();
-         }
+         }*/
+
+            LogZ.error(DBUtils.selectUberOne());
+    }
+
+    /**
+     * 新建表
+     */
+    @Test
+    public static void createTable() {
+        DBUtils.createTable(Constants.SQL_CREATE_BOOK);
+        DBUtils.createTable(Constants.SQL_CREATE_PERSON);
+        DBUtils.createTable(Constants.SQL_CREATE_WORK);
+        DBUtils.createTable(Constants.SQL_CREATE_UBER);
     }
 
     /**
@@ -74,16 +87,8 @@ public class DBTest {
     private static void insertDataUber() {
         String UDID = CreateID.returnCard();
         DBUtils.executeUpdate(Constants.SQL_INSERT_UBER, UDID,"车找人","杭州","梅川","5月1日","4","150","蜗牛","13282380039","福特蒙迪欧","6年","909606812","顺路的可以包接送。");
+        UDID = CreateID.returnCard();
+        DBUtils.executeUpdate(Constants.SQL_INSERT_UBER, UDID,"人找车","蕲春","丁桥","6月3日","3","180","zour","13633336666","奥迪A6","8年","411148018","可以留言，也可以直接电话。");
     }
 
-    /**
-     * 新建表
-     */
-    @Test
-    public static void createTable() {
-        DBUtils.createTable(Constants.SQL_CREATE_BOOK);
-        DBUtils.createTable(Constants.SQL_CREATE_PERSON);
-        DBUtils.createTable(Constants.SQL_CREATE_WORK);
-        DBUtils.createTable(Constants.SQL_CREATE_UBER);
-    }
 }
