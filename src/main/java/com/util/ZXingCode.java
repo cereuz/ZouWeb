@@ -110,10 +110,12 @@ public class ZXingCode {
 
 
     public static void main(String[] args){
+        String id = CreateID.getCard(8);
         File logoFile = new File("D:\\Java\\book\\icon\\zao96.png"); //logo
-        File QrCodeFile = new File("D:\\Java\\book\\123.png");// 二维码生成地址以及名称格式
-        String url = "https://www.zouon.com/";  //扫描二维码进入网址
-        String note = "我的二维码"; //标题
+        File QrCodeFile = new File("D:\\Java\\book\\"+ id + ".png");// 二维码生成地址以及名称格式
+//      String url = "https://www.zouon.com/";  //扫描二维码进入网址
+        String url =  "http://www.zou.com/z/" + id;  //扫描二维码进入网址
+        String note = "我的ID：" + id; //标题
         ZXingCode.drawLogoQRCode(logoFile, QrCodeFile, url, note);
     }
 }

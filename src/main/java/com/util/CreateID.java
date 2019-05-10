@@ -10,7 +10,7 @@ import java.util.Random;
  */
 public class CreateID {
     public static String returnCard(){
-        String cardNnumer=getCard();//调用生成随机数的方法：这里以6位为例
+        String cardNnumer=getCard(6);//调用生成随机数的方法：这里以6位为例
         Boolean eCard = DBUtils.selectByCardNum(Constants.SQL_SELECT_UBER_UDID,cardNnumer);//生成的随机数进入数据库中查询一下，看时候有相同的。
         if(eCard != false){//如果有相同的数据
             return returnCard();//再次调用方法，生成一个随机数
@@ -19,11 +19,11 @@ public class CreateID {
         }
     }
     //生成随机数
-    public static String getCard(){
+    public static String getCard(int n){
         Random rand=new Random();//生成随机数
         String cardNnumer= "";
         cardNnumer += rand.nextInt(9) + 1;
-        for(int a=1;a<6;a++){
+        for(int a=1;a< n;a++){
             cardNnumer+=rand.nextInt(10);//生成6位数字
         }
         return cardNnumer;
