@@ -6,11 +6,7 @@ package com.security;
  * @date : 2019/5/13 14:43.
  * @motto : To be, or not to be.
  */
-
-import sun.misc.BASE64Decoder;
-import sun.misc.BASE64Encoder;
-
-import java.io.IOException;
+import java.util.Base64;
 
 /**
  * 进制转换工具类
@@ -50,29 +46,17 @@ public class ParseSystemUtil {
     }
 
     /**
-     * 使用base64解决乱码
-     *
+     * 使用Java自动的  编码 解码
      * @param secretKey
-     * 加密后的字节码
+     * @return
      */
-    public static String jdkBase64String(byte[] secretKey) {
-        BASE64Encoder encoder = new BASE64Encoder();
-        return encoder.encode(secretKey);
+    public static String Base64Encode(byte[] secretKey) {
+        Base64.Encoder encoder = Base64.getEncoder();
+        return encoder.encodeToString(secretKey);
     }
 
-    /**
-     * 使用jdk的base64 解密字符串 返回为null表示解密失败
-     *
-     * @throws IOException
-     */
-    public static byte[] jdkBase64Decoder(String str) {
-        BASE64Decoder decoder = new BASE64Decoder();
-        try {
-            return decoder.decodeBuffer(str);
-        } catch (IOException e) {
-            e.printStackTrace();
-        } finally {
-            return null;
-        }
+    public static byte[] Base64Decoder(String str) {
+        Base64.Decoder decoder = Base64.getDecoder();
+        return decoder.decode(str);
     }
 }

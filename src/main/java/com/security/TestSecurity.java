@@ -1,6 +1,5 @@
 package com.security;
 
-import com.util.Constants;
 import com.util.LogY;
 
 /**
@@ -15,6 +14,8 @@ public class TestSecurity {
          AEStest();
          System.out.println("===============================================================");
          DEStest();
+        System.out.println("===============================================================");
+         RSAtest();
     }
 
     /**
@@ -26,7 +27,7 @@ public class TestSecurity {
         LogY.error("加密之前：" + content);
         // 加密
         byte[] encrypt = AES.encrypt(content, password);
-        LogY.error("Base64解析后："+ ParseSystemUtil.jdkBase64String(encrypt));
+        LogY.error("Base64解析后："+ ParseSystemUtil.Base64Encode(encrypt));
         LogY.error("加密后的内容：" + new String(encrypt));
 
         //如果想要加密内容不显示乱码，可以先将密文转换为16进制
@@ -52,7 +53,7 @@ public class TestSecurity {
         String password = "95880288201091325707433253118984263478572987735494687588750185795377577721630844788736994473060344662006164119605741224340594691002358927027368608729012471234569588028820109132570743325311898426347857298773549468758875018579537757772163084478873699447306034466200616411960574122434059469100235892702736860872901247123456958802882010913257074332531189842634785729877354946875887501857953775777216308447887369944730603446620061641196057412243405946910023589270273686087290124712345695880288201091325707433253118984263478572987735494687588750185795377577721630844788736994473060344662006164119605741224340594691002358927027368608729012471234569588028820109132570743325311898426347857298773549468758875018579537757772163084478873699447306034466200616411960574122434059469100235892702736860872901247123456";
 
         byte[] result = DES.encrypt(str.getBytes(),password);
-        LogY.error("加密后："+ ParseSystemUtil.jdkBase64String(result));
+        LogY.error("加密后："+ ParseSystemUtil.Base64Encode(result));
         //直接将如上内容解密
         try {
             byte[] decryResult = DES.decrypt(result, password);
@@ -60,5 +61,21 @@ public class TestSecurity {
         } catch (Exception e1) {
             e1.printStackTrace();
         }
+    }
+
+    public static void RSAtest() {
+        String privateKey="MIICdwIBADANBgkqhkiG9w0BAQEFAASCAmEwggJdAgEAAoGBAJEq5BlUar57utzY+9Tha8GLK/ufni6qdhKZYmCdA6ES8tRvE2sBu4+9nKyK/lgv5QqWh19ygoWhDPmnZvoPGcbeGcHbMZ4YlXGyEgOjmIR33NqG9BrqixOcNPWEfme7Jn5f35iL2pkmMeGZd8aeGYdxDUjpIUgLkctrdyvt3NVhAgMBAAECgYBUaKcnH1HOHq3B2p1b5BM+/8h8UAyvP8jV+cAdQ08n6pet9ERLNT+1TeB653sLFhZM+MgQNMo2HzYnODKFdiBa/bBCjiDFft0xUXlbtXUSBsTFQEiepGii5ILRnSDqEvcpcQ/3sbhZ5q8RKXXcZBignzGN3rcizFJRxodMiFTQAQJBAPiiDY3g4XsAr4KiuLwzjeWKMUnFcabZLQdZ2z0ky82zk7Qr6KnaSMP0tJDqmqtZuset4iNq+2lYE3XMFQd25OECQQCVeAZuyeI33fgh6enl9U7YoJoye0JtHaQKF6MVOVrfN/9rvpeE3RS95E/t8sSStan8IS36JvZVB2u7e95l44CBAkEA1Tyu4ULAP20MGb8TLx4MEZRex0VWPuG987MGC7+WJzpfcEPETIBQrfceMbdzpYfUYFLqQrQLIYMPVZUNaBR5IQJBAIT2F2rYhjdCaufoSFx7Ip+MBn9frJCabIFZ04Ye1lp5WurCydC0Ri5B+mRmsDz+A2+5KEg9/qVXC5vlLcqfXYECQH77xj2FjxWJJR3j2Dwxdq9XTFzVwVjFxqoH25K9YvpFj1cfJc3SdSKxUs8++i2KMIuWugSSA0VCGSQG4GwNWKs=";
+        String source = "这是一行测试RSA数字签名的无意义文字";
+        System.out.println("原文字：\t" + source);
+        byte[] data = source.getBytes();
+        byte[] encodedData = RSA.encryptByPrivateKey(data, privateKey);
+        System.out.println("加密后：\t" + new String(encodedData));
+        String base64EncodedData = ParseSystemUtil.Base64Encode(encodedData);
+        System.out.println("加密后BASE64：\t" + base64EncodedData);
+
+/*        byte[] decodedData2 = RSA.decryptByPrivateKey(encodedData,privateKey);
+        System.out.println("解密后：\t" + new String(decodedData2));
+        byte[] decodedData = RSA.decryptByPrivateKey(ParseSystemUtil.Base64Decoder(base64EncodedData),privateKey);
+        System.out.println("解密后：\t" + new String(decodedData));*/
     }
 }
