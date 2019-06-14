@@ -58,7 +58,7 @@ public class RSAUtils4Client {
      */
     public static byte[] encryptByPublicKey(byte[] data, String publicKey)
             throws Exception {
-        byte[] keyBytes = ParseSystemUtil.Base64Decoder(publicKey);
+        byte[] keyBytes = ParseUtil.Base64Decoder(publicKey);
         X509EncodedKeySpec x509KeySpec = new X509EncodedKeySpec(keyBytes);
         KeyFactory keyFactory = KeyFactory.getInstance(KEY_ALGORITHM);
         Key publicK = keyFactory.generatePublic(x509KeySpec);
@@ -92,8 +92,8 @@ public class RSAUtils4Client {
         byte[] data = source.getBytes();
         byte[] encodedData = RSA.encryptByPrivateKey(data, privateKey);
         System.out.println("加密后：\r\n" + new String(encodedData));
-        String base64EncodedData = ParseSystemUtil.Base64Encode(encodedData);
+        String base64EncodedData = ParseUtil.Base64Encode(encodedData);
         //System.out.println("加密后BASE64：\r\n" + base64EncodedData);
-        System.out.println("加密后BASE64：\r\n" + ParseSystemUtil.Base64Encode(encodedData));
+        System.out.println("加密后BASE64：\r\n" + ParseUtil.Base64Encode(encodedData));
     }
 }

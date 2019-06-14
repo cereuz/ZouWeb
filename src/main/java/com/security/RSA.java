@@ -108,14 +108,14 @@ public class RSA {
      * @throws Exception
      */
     public static String sign(byte[] data, String privateKey) throws Exception {
-        byte[] keyBytes = ParseSystemUtil.Base64Decoder(privateKey);
+        byte[] keyBytes = ParseUtil.Base64Decoder(privateKey);
         PKCS8EncodedKeySpec pkcs8KeySpec = new PKCS8EncodedKeySpec(keyBytes);
         KeyFactory keyFactory = KeyFactory.getInstance(KEY_ALGORITHM);
         PrivateKey privateK = keyFactory.generatePrivate(pkcs8KeySpec);
         Signature signature = Signature.getInstance(SIGNATURE_ALGORITHM);
         signature.initSign(privateK);
         signature.update(data);
-        return ParseSystemUtil.Base64Encode(signature.sign());
+        return ParseUtil.Base64Encode(signature.sign());
     }
 
     /** *//**
@@ -133,14 +133,14 @@ public class RSA {
      */
     public static boolean verify(byte[] data, String publicKey, String sign)
             throws Exception {
-        byte[] keyBytes = ParseSystemUtil.Base64Decoder(publicKey);
+        byte[] keyBytes = ParseUtil.Base64Decoder(publicKey);
         X509EncodedKeySpec keySpec = new X509EncodedKeySpec(keyBytes);
         KeyFactory keyFactory = KeyFactory.getInstance(KEY_ALGORITHM);
         PublicKey publicK = keyFactory.generatePublic(keySpec);
         Signature signature = Signature.getInstance(SIGNATURE_ALGORITHM);
         signature.initVerify(publicK);
         signature.update(data);
-        return signature.verify(ParseSystemUtil.Base64Decoder(sign));
+        return signature.verify(ParseUtil.Base64Decoder(sign));
     }
 
     /** *//**
@@ -156,7 +156,7 @@ public class RSA {
     public static byte[] decryptByPrivateKey(byte[] encryptedData, String privateKey) {
         byte[] decryptedData = null;
         try {
-        byte[] keyBytes = ParseSystemUtil.Base64Decoder(privateKey);
+        byte[] keyBytes = ParseUtil.Base64Decoder(privateKey);
         PKCS8EncodedKeySpec pkcs8KeySpec = new PKCS8EncodedKeySpec(keyBytes);
         KeyFactory keyFactory = KeyFactory.getInstance(KEY_ALGORITHM);
         Key privateK = keyFactory.generatePrivate(pkcs8KeySpec);
@@ -219,7 +219,7 @@ public class RSA {
      */
     public static byte[] decryptByPublicKey(byte[] encryptedData, String publicKey)
             throws Exception {
-        byte[] keyBytes = ParseSystemUtil.Base64Decoder(publicKey);
+        byte[] keyBytes = ParseUtil.Base64Decoder(publicKey);
         X509EncodedKeySpec x509KeySpec = new X509EncodedKeySpec(keyBytes);
         KeyFactory keyFactory = KeyFactory.getInstance(KEY_ALGORITHM);
         Key publicK = keyFactory.generatePublic(x509KeySpec);
@@ -258,7 +258,7 @@ public class RSA {
      */
     public static byte[] encryptByPublicKey(byte[] data, String publicKey)
             throws Exception {
-        byte[] keyBytes = ParseSystemUtil.Base64Decoder(publicKey);
+        byte[] keyBytes = ParseUtil.Base64Decoder(publicKey);
         X509EncodedKeySpec x509KeySpec = new X509EncodedKeySpec(keyBytes);
         KeyFactory keyFactory = KeyFactory.getInstance(KEY_ALGORITHM);
         Key publicK = keyFactory.generatePublic(x509KeySpec);
@@ -298,7 +298,7 @@ public class RSA {
     public static byte[] encryptByPrivateKey(byte[] data, String privateKey){
         byte[] encryptedData = null;
         try {
-            byte[] keyBytes = ParseSystemUtil.Base64Decoder(privateKey);
+            byte[] keyBytes = ParseUtil.Base64Decoder(privateKey);
             PKCS8EncodedKeySpec pkcs8KeySpec = new PKCS8EncodedKeySpec(keyBytes);
             KeyFactory keyFactory = KeyFactory.getInstance(KEY_ALGORITHM);
             Key privateK = keyFactory.generatePrivate(pkcs8KeySpec);
@@ -361,7 +361,7 @@ public class RSA {
     public static String getPrivateKey(Map<String, Object> keyMap)
             throws Exception {
         Key key = (Key) keyMap.get(PRIVATE_KEY);
-        return ParseSystemUtil.Base64Encode(key.getEncoded());
+        return ParseUtil.Base64Encode(key.getEncoded());
     }
 
     /** *//**
@@ -376,7 +376,7 @@ public class RSA {
     public static String getPublicKey(Map<String, Object> keyMap)
             throws Exception {
         Key key = (Key) keyMap.get(PUBLIC_KEY);
-        return ParseSystemUtil.Base64Encode(key.getEncoded());
+        return ParseUtil.Base64Encode(key.getEncoded());
     }
 
 }

@@ -11,7 +11,7 @@ import java.util.Base64;
 /**
  * 进制转换工具类
  */
-public class ParseSystemUtil {
+public class ParseUtil {
     /**将二进制转换成16进制
      * @param buf
      * @return
